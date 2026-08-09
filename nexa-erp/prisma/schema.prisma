@@ -1,0 +1,356 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =========================== ENUMS ===========================
+
+enum Role {
+  ADMIN
+  VENDEDOR
+  PRODUCAO
+  FINANCEIRO
+  ESTOQUE
+}
+
+enum TipoPessoa {
+  FISICA
+  JURIDICA
+}
+
+enum CategoriaProduto {
+  IMPRESSAO_DIGITAL
+  OFFSET
+  BANNER
+  ADESIVO
+  PAPELARIA
+  COMUNICACAO_VISUAL
+  PERSONALIZADOS
+  ACABAMENTO
+  OUTROS
+}
+
+enum StatusOrcamento {
+  RASCUNHO
+  ENVIADO
+  APROVADO
+  REJEITADO
+  EXPIRADO
+  CONVERTIDO
+}
+
+enum EtapaProducao {
+  FILA
+  DESIGN
+  IMPRESSAO
+  ACABAMENTO
+  EXPEDICAO
+  ENTREGUE
+  CANCELADO
+}
+
+enum Prioridade {
+  BAIXA
+  NORMAL
+  ALTA
+  URGENTE
+}
+
+enum CategoriaEstoque {
+  PAPEL
+  TINTA
+  CHAPA
+  ACABAMENTO
+  OUTROS
+}
+
+enum TipoMovimentacao {
+  ENTRADA
+  SAIDA
+  AJUSTE
+}
+
+enum TipoLancamento {
+  RECEITA
+  DESPESA
+}
+
+enum StatusLancamento {
+  PENDENTE
+  PAGO
+  ATRASADO
+  CANCELADO
+}
+
+enum FormaPagamento {
+  DINHEIRO
+  PIX
+  CARTAO_CREDITO
+  CARTAO_DEBITO
+  BOLETO
+  TRANSFERENCIA
+  PRAZO
+}
+
+// =========================== USUÁRIOS ===========================
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(VENDEDOR)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orcamentos      Orcamento[]
+  ordensServico   OrdemServico[]
+  producaoLogs    ProducaoLog[]
+  movimentacoes   MovimentacaoEstoque[]
+  lancamentos     LancamentoFinanceiro[]
+
+  @@map("users")
+}
+
+// =========================== CADASTROS ===========================
+
+model Cliente {
+  id         String     @id @default(cuid())
+  tipo       TipoPessoa @default(FISICA)
+  nome       String
+  documento  String?
+  email      String?
+  telefone   String?
+  whatsapp   String?
+  endereco   String?
+  numero     String?
+  bairro     String?
+  cidade     String?
+  estado     String?
+  cep        String?
+  observacoes String?
+  ativo      Boolean    @default(true)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  orcamentos    Orcamento[]
+  ordensServico OrdemServico[]
+  lancamentos   LancamentoFinanceiro[]
+
+  @@map("clientes")
+}
+
+model Fornecedor {
+  id          String   @id @default(cuid())
+  nome        String
+  documento   String?
+  email       String?
+  telefone    String?
+  endereco    String?
+  cidade      String?
+  estado      String?
+  observacoes String?
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  itensEstoque  ItemEstoque[]
+  lancamentos   LancamentoFinanceiro[]
+
+  @@map("fornecedores")
+}
+
+model Produto {
+  id          String            @id @default(cuid())
+  nome        String
+  categoria   CategoriaProduto  @default(OUTROS)
+  descricao   String?
+  unidade     String            @default("UN")
+  precoVenda  Decimal           @default(0) @db.Decimal(12, 2)
+  custo       Decimal           @default(0) @db.Decimal(12, 2)
+  ativo       Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  itensOrcamento     ItemOrcamento[]
+  itensOrdemServico  ItemOrdemServico[]
+
+  @@map("produtos")
+}
+
+// =========================== ORÇAMENTOS ===========================
+
+model Orcamento {
+  id           String          @id @default(cuid())
+  numero       Int             @unique @default(autoincrement())
+  clienteId    String
+  cliente      Cliente         @relation(fields: [clienteId], references: [id])
+  vendedorId   String
+  vendedor     User            @relation(fields: [vendedorId], references: [id])
+  status       StatusOrcamento @default(RASCUNHO)
+  dataValidade DateTime?
+  desconto     Decimal         @default(0) @db.Decimal(12, 2)
+  total        Decimal         @default(0) @db.Decimal(12, 2)
+  observacoes  String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  itens         ItemOrcamento[]
+  ordemServico  OrdemServico?
+
+  @@map("orcamentos")
+}
+
+model ItemOrcamento {
+  id            String    @id @default(cuid())
+  orcamentoId   String
+  orcamento     Orcamento @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
+  produtoId     String?
+  produto       Produto?  @relation(fields: [produtoId], references: [id])
+  descricao     String
+  quantidade    Decimal   @default(1) @db.Decimal(12, 2)
+  valorUnitario Decimal   @default(0) @db.Decimal(12, 2)
+  valorTotal    Decimal   @default(0) @db.Decimal(12, 2)
+
+  @@map("itens_orcamento")
+}
+
+// =========================== ORDENS DE SERVIÇO ===========================
+
+model OrdemServico {
+  id            String        @id @default(cuid())
+  numero        Int           @unique @default(autoincrement())
+  clienteId     String
+  cliente       Cliente       @relation(fields: [clienteId], references: [id])
+  orcamentoId   String?       @unique
+  orcamento     Orcamento?    @relation(fields: [orcamentoId], references: [id])
+  vendedorId    String
+  vendedor      User          @relation(fields: [vendedorId], references: [id])
+  etapa         EtapaProducao @default(FILA)
+  prioridade    Prioridade    @default(NORMAL)
+  dataEntrega   DateTime?
+  dataEntregue  DateTime?
+  desconto      Decimal       @default(0) @db.Decimal(12, 2)
+  total         Decimal       @default(0) @db.Decimal(12, 2)
+  formaPagamento FormaPagamento?
+  observacoes   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  itens          ItemOrdemServico[]
+  producaoLogs   ProducaoLog[]
+  movimentacoes  MovimentacaoEstoque[]
+  lancamentos    LancamentoFinanceiro[]
+
+  @@map("ordens_servico")
+}
+
+model ItemOrdemServico {
+  id             String       @id @default(cuid())
+  ordemServicoId String
+  ordemServico   OrdemServico @relation(fields: [ordemServicoId], references: [id], onDelete: Cascade)
+  produtoId      String?
+  produto        Produto?     @relation(fields: [produtoId], references: [id])
+  descricao      String
+  quantidade     Decimal      @default(1) @db.Decimal(12, 2)
+  valorUnitario  Decimal      @default(0) @db.Decimal(12, 2)
+  valorTotal     Decimal      @default(0) @db.Decimal(12, 2)
+
+  @@map("itens_ordem_servico")
+}
+
+model ProducaoLog {
+  id             String        @id @default(cuid())
+  ordemServicoId String
+  ordemServico   OrdemServico  @relation(fields: [ordemServicoId], references: [id], onDelete: Cascade)
+  etapa          EtapaProducao
+  userId         String
+  usuario        User          @relation(fields: [userId], references: [id])
+  observacao     String?
+  createdAt      DateTime      @default(now())
+
+  @@map("producao_logs")
+}
+
+// =========================== ESTOQUE ===========================
+
+model ItemEstoque {
+  id                String           @id @default(cuid())
+  nome              String
+  categoria         CategoriaEstoque @default(OUTROS)
+  unidade           String           @default("UN")
+  quantidadeAtual   Decimal          @default(0) @db.Decimal(12, 2)
+  quantidadeMinima  Decimal          @default(0) @db.Decimal(12, 2)
+  custoUnitario     Decimal          @default(0) @db.Decimal(12, 2)
+  fornecedorId      String?
+  fornecedor        Fornecedor?      @relation(fields: [fornecedorId], references: [id])
+  ativo             Boolean          @default(true)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  movimentacoes MovimentacaoEstoque[]
+
+  @@map("itens_estoque")
+}
+
+model MovimentacaoEstoque {
+  id             String           @id @default(cuid())
+  itemEstoqueId  String
+  itemEstoque    ItemEstoque      @relation(fields: [itemEstoqueId], references: [id])
+  tipo           TipoMovimentacao
+  quantidade     Decimal          @db.Decimal(12, 2)
+  motivo         String?
+  ordemServicoId String?
+  ordemServico   OrdemServico?    @relation(fields: [ordemServicoId], references: [id])
+  userId         String
+  usuario        User             @relation(fields: [userId], references: [id])
+  createdAt      DateTime         @default(now())
+
+  @@map("movimentacoes_estoque")
+}
+
+// =========================== FINANCEIRO ===========================
+
+model LancamentoFinanceiro {
+  id             String           @id @default(cuid())
+  tipo           TipoLancamento
+  descricao      String
+  categoria      String
+  valor          Decimal          @db.Decimal(12, 2)
+  dataVencimento DateTime
+  dataPagamento  DateTime?
+  status         StatusLancamento @default(PENDENTE)
+  formaPagamento FormaPagamento?
+  clienteId      String?
+  cliente        Cliente?         @relation(fields: [clienteId], references: [id])
+  fornecedorId   String?
+  fornecedor     Fornecedor?      @relation(fields: [fornecedorId], references: [id])
+  ordemServicoId String?
+  ordemServico   OrdemServico?    @relation(fields: [ordemServicoId], references: [id])
+  userId         String
+  usuario        User             @relation(fields: [userId], references: [id])
+  observacoes    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@map("lancamentos_financeiros")
+}
+
+// =========================== CONFIGURAÇÕES ===========================
+
+model Empresa {
+  id        String  @id @default(cuid())
+  nome      String  @default("Nexa Print")
+  cnpj      String?
+  telefone  String?
+  email     String?
+  endereco  String?
+  logoUrl   String?
+
+  @@map("empresa")
+}
