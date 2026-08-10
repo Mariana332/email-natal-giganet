@@ -60,6 +60,16 @@ export async function createOrcamento(
     },
   });
 
+  const leadId = formData.get("leadId") as string;
+  if (leadId) {
+    await prisma.lead.update({
+      where: { id: leadId },
+      data: { orcamentoId: orcamento.id, etapa: "PROPOSTA_ENVIADA" },
+    });
+    revalidatePath("/crm");
+    revalidatePath(`/crm/${leadId}`);
+  }
+
   revalidatePath("/orcamentos");
   redirect(`/orcamentos/${orcamento.id}`);
 }

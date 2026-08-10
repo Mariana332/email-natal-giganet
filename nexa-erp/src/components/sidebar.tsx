@@ -14,6 +14,7 @@ import {
   Boxes,
   UserCog,
   Settings,
+  Target,
   X,
 } from "lucide-react";
 import type { Role } from "@/generated/prisma/enums";
@@ -50,6 +51,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "Comercial",
     items: [
+      { href: "/crm", label: "CRM", icon: Target, module: "crm" },
       { href: "/orcamentos", label: "Orçamentos", icon: FileText, module: "orcamentos" },
       { href: "/ordens-servico", label: "Ordens de Serviço", icon: ClipboardList, module: "ordensServico" },
       { href: "/producao", label: "Produção", icon: Kanban, module: "producao" },

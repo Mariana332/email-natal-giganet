@@ -106,11 +106,17 @@ export async function importProdutos(
 
   const novos = rows
     .map((row) => {
-      const nome = row["nome"] || row["produto"] || row["descrição"] || row["descricao"];
+      const nomeBase =
+        row["nome"] || row["produto"] || row["descrição"] || row["descricao"] || row["lista de preços"] || row["lista de precos"];
       const precoVenda = parseNumeroPtBr(
         row["preço"] || row["preco"] || row["preço de venda"] || row["preco de venda"] || row["valor"]
       );
-      if (!nome || precoVenda === null) return null;
+      if (!nomeBase || precoVenda === null) return null;
+
+      // Tabelas de preço com faixas de quantidade (ex: fornecedor "Card") repetem o mesmo
+      // nome em várias linhas, uma por faixa — anexa a Qtd ao nome para diferenciar cada item.
+      const qtd = row["qtd"] || row["quantidade"];
+      const nome = qtd ? `${nomeBase} (${qtd} un)` : nomeBase;
 
       const custo = parseNumeroPtBr(row["custo"]) ?? 0;
       const categoria = matchCategoria(row["categoria"]);
@@ -123,7 +129,7 @@ export async function importProdutos(
   if (novos.length === 0) {
     return {
       error:
-        "Nenhuma linha válida encontrada. Use colunas: Nome, Categoria, Preço (e opcionalmente Custo, Unidade).",
+        "Nenhuma linha válida encontrada. Use colunas: Nome, Categoria, Preço (e opcionalmente Custo, Unidade, Qtd).",
       importedCount: null,
     };
   }
