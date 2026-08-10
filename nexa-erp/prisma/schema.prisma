@@ -344,13 +344,15 @@ model LancamentoFinanceiro {
 // =========================== CONFIGURAÇÕES ===========================
 
 model Empresa {
-  id        String  @id @default(cuid())
-  nome      String  @default("Nexa Print")
-  cnpj      String?
-  telefone  String?
-  email     String?
-  endereco  String?
-  logoUrl   String?
+  id           String   @id @default(cuid())
+  nome         String   @default("Nexa Print")
+  cnpj         String?
+  telefone     String?
+  email        String?
+  endereco     String?
+  instagram    String?
+  logoUrl      String?
+  markupPadrao Decimal? @db.Decimal(6, 2)
 
   @@map("empresa")
 }

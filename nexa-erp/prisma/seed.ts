@@ -69,6 +69,8 @@ async function main() {
       telefone: "(34) 9 9150-1234",
       email: "contato@nexaprint.com.br",
       endereco: "Rua Celmério Guimarães, 123 - Centro - Araxá/MG",
+      instagram: "@nexaprint.araxa",
+      markupPadrao: 100,
     },
   });
 

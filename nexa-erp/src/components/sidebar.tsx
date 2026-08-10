@@ -13,6 +13,7 @@ import {
   Wallet,
   Boxes,
   UserCog,
+  Settings,
   X,
 } from "lucide-react";
 import type { Role } from "@/generated/prisma/enums";
@@ -60,6 +61,7 @@ const NAV_GROUPS: NavGroup[] = [
       { href: "/financeiro", label: "Financeiro", icon: Wallet, module: "financeiro" },
       { href: "/estoque", label: "Estoque", icon: Boxes, module: "estoque" },
       { href: "/usuarios", label: "Usuários", icon: UserCog, module: "usuarios" },
+      { href: "/configuracoes", label: "Configurações", icon: Settings, module: "configuracoes" },
     ],
   },
 ];

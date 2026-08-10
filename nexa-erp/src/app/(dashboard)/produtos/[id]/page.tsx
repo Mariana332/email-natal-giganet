@@ -15,7 +15,10 @@ export default async function EditarProdutoPage({
   await requireModule("cadastros");
   const { id } = await params;
 
-  const produto = await prisma.produto.findUnique({ where: { id } });
+  const [produto, empresa] = await Promise.all([
+    prisma.produto.findUnique({ where: { id } }),
+    prisma.empresa.findFirst(),
+  ]);
   if (!produto) notFound();
 
   const boundAction = updateProduto.bind(null, id);
@@ -26,7 +29,17 @@ export default async function EditarProdutoPage({
 
       <div className="rounded-xl border border-nexa-gray-light bg-white p-6 shadow-sm">
         <ActionForm action={boundAction}>
-          <ProdutoFields defaultValues={produto} />
+          <ProdutoFields
+            defaultValues={{
+              nome: produto.nome,
+              categoria: produto.categoria,
+              unidade: produto.unidade,
+              precoVenda: Number(produto.precoVenda),
+              custo: Number(produto.custo),
+              descricao: produto.descricao,
+            }}
+            markupPadrao={empresa?.markupPadrao ? Number(empresa.markupPadrao) : null}
+          />
           <div className="mt-6 flex justify-end gap-2">
             <ButtonLink href="/produtos" variant="secondary">
               Voltar
