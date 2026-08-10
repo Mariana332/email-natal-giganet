@@ -17,6 +17,7 @@ export const MODULE_ACCESS = {
   financeiro: ["ADMIN", "FINANCEIRO"],
   estoque: ["ADMIN", "ESTOQUE", "PRODUCAO"],
   usuarios: ["ADMIN"],
+  configuracoes: ["ADMIN"],
 } as const satisfies Record<string, readonly Role[]>;
 
 export type ModuleKey = keyof typeof MODULE_ACCESS;

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Pencil, Send, CheckCircle2, XCircle, ArrowRightLeft } from "lucide-react";
+import { Pencil, Send, CheckCircle2, XCircle, ArrowRightLeft, MessageCircle, Printer } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requireModule } from "@/lib/auth-guard";
 import { PageHeader } from "@/components/ui/page-header";
@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { DeleteButton } from "@/components/ui/delete-button";
 import { STATUS_ORCAMENTO_COLORS, STATUS_ORCAMENTO_LABELS, formatCurrency, formatDate } from "@/lib/labels";
+import { buildOrcamentoWhatsAppUrl } from "@/lib/whatsapp";
 import { setOrcamentoStatus, deleteOrcamento, convertOrcamentoToOS } from "../actions";
 
 export default async function OrcamentoDetailPage({
@@ -30,6 +31,8 @@ export default async function OrcamentoDetailPage({
   if (!orcamento) notFound();
 
   const subtotal = orcamento.itens.reduce((acc, i) => acc + Number(i.valorTotal), 0);
+  const empresa = await prisma.empresa.findFirst();
+  const whatsappUrl = buildOrcamentoWhatsAppUrl(orcamento, empresa);
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -41,6 +44,19 @@ export default async function OrcamentoDetailPage({
             <Badge color={STATUS_ORCAMENTO_COLORS[orcamento.status]}>
               {STATUS_ORCAMENTO_LABELS[orcamento.status]}
             </Badge>
+            <ButtonLink href={`/orcamentos/${id}/imprimir`} variant="secondary">
+              <Printer className="h-4 w-4" /> Imprimir / PDF
+            </ButtonLink>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-nexa-gray-light bg-white px-4 py-2 text-sm font-semibold text-green-700 transition hover:bg-nexa-gray-light/60"
+              >
+                <MessageCircle className="h-4 w-4" /> Enviar por WhatsApp
+              </a>
+            )}
             {orcamento.status === "RASCUNHO" && (
               <>
                 <ButtonLink href={`/orcamentos/${id}/editar`} variant="secondary">

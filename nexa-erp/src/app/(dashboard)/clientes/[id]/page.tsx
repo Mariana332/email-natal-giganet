@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requireModule } from "@/lib/auth-guard";
 import { PageHeader } from "@/components/ui/page-header";
@@ -7,6 +8,7 @@ import { ActionForm, SubmitButton } from "@/components/ui/action-form";
 import { ButtonLink } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ETAPA_PRODUCAO_COLORS, ETAPA_PRODUCAO_LABELS, formatCurrency, formatDate } from "@/lib/labels";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { updateCliente } from "../actions";
 import { ClienteFields } from "../cliente-fields";
 
@@ -31,10 +33,26 @@ export default async function EditarClientePage({
   if (!cliente) notFound();
 
   const boundAction = updateCliente.bind(null, id);
+  const whatsappUrl = buildWhatsAppUrl(cliente.whatsapp || cliente.telefone);
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageHeader title={cliente.nome} description="Editar dados do cliente." />
+      <PageHeader
+        title={cliente.nome}
+        description="Editar dados do cliente."
+        action={
+          whatsappUrl ? (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-nexa-gray-light bg-white px-4 py-2 text-sm font-semibold text-green-700 transition hover:bg-nexa-gray-light/60"
+            >
+              <MessageCircle className="h-4 w-4" /> Conversar no WhatsApp
+            </a>
+          ) : undefined
+        }
+      />
 
       <div className="rounded-xl border border-nexa-gray-light bg-white p-6 shadow-sm">
         <ActionForm action={boundAction}>

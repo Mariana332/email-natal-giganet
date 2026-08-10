@@ -350,6 +350,7 @@ model Empresa {
   telefone  String?
   email     String?
   endereco  String?
+  instagram String?
   logoUrl   String?
 
   @@map("empresa")
