@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { StatCard } from "@/components/ui/stat-card";
 import { Badge } from "@/components/ui/badge";
 import { DeleteButton } from "@/components/ui/delete-button";
+import { PrintButton } from "@/components/ui/print-button";
 import {
   STATUS_LANCAMENTO_COLORS,
   STATUS_LANCAMENTO_LABELS,
@@ -63,9 +64,12 @@ export default async function FinanceiroPage({
         title="Financeiro"
         description="Contas a pagar, a receber e fluxo de caixa"
         action={
-          <ButtonLink href="/financeiro/novo">
-            <Plus className="h-4 w-4" /> Novo lançamento
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/financeiro/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo lançamento
+            </ButtonLink>
+          </div>
         }
       />
 
@@ -90,7 +94,7 @@ export default async function FinanceiroPage({
         />
       </div>
 
-      <div className="mt-6 mb-4 flex flex-wrap gap-2">
+      <div className="mt-6 mb-4 flex flex-wrap gap-2 no-print">
         {tabs.map((tab) => {
           const active = (tipo ?? "") === tab.tipo && (status ?? "") === tab.status;
           const params = new URLSearchParams();
@@ -121,7 +125,7 @@ export default async function FinanceiroPage({
               <th className="px-4 py-3">Vencimento</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3 text-right">Valor</th>
-              <th className="px-4 py-3 text-right">Ações</th>
+              <th className="px-4 py-3 text-right no-print">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -159,7 +163,7 @@ export default async function FinanceiroPage({
                   <td className="px-4 py-3 text-right font-medium text-nexa-black">
                     {formatCurrency(Number(l.valor))}
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3 text-right no-print">
                     <div className="flex justify-end gap-1">
                       {l.status !== "PAGO" && l.status !== "CANCELADO" && (
                         <form action={marcarPago.bind(null, l.id)}>

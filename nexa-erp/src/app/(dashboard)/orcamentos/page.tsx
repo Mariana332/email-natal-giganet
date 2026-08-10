@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { Badge } from "@/components/ui/badge";
+import { PrintButton } from "@/components/ui/print-button";
 import { STATUS_ORCAMENTO_COLORS, STATUS_ORCAMENTO_LABELS, formatCurrency, formatDate } from "@/lib/labels";
 
 export default async function OrcamentosPage({
@@ -29,13 +30,16 @@ export default async function OrcamentosPage({
         title="Orçamentos"
         description={`${orcamentos.length} orçamento(s)`}
         action={
-          <ButtonLink href="/orcamentos/novo">
-            <Plus className="h-4 w-4" /> Novo orçamento
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/orcamentos/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo orçamento
+            </ButtonLink>
+          </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar por cliente..." />
       </div>
 

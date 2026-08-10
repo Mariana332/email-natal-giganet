@@ -138,13 +138,13 @@ export function Sidebar({
   return (
     <>
       {/* Desktop */}
-      <aside className="hidden w-[260px] shrink-0 border-r border-black/20 lg:block">
+      <aside className="hidden w-[260px] shrink-0 border-r border-black/20 lg:block print:hidden">
         {content}
       </aside>
 
       {/* Mobile */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden print:hidden">
           <div
             className="absolute inset-0 bg-black/50"
             onClick={onClose}

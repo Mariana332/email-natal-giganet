@@ -22,7 +22,7 @@ export function Topbar({
     .toUpperCase();
 
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b border-nexa-gray-light bg-white px-4 sm:px-6">
+    <header className="flex h-16 shrink-0 items-center justify-between border-b border-nexa-gray-light bg-white px-4 sm:px-6 print:hidden">
       <button
         onClick={onMenuClick}
         className="rounded-md p-2 text-nexa-charcoal hover:bg-nexa-gray-light lg:hidden"

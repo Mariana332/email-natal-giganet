@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DeleteButton } from "@/components/ui/delete-button";
+import { PrintButton } from "@/components/ui/print-button";
 import { ROLE_LABELS } from "@/lib/permissions";
 import { deactivateUsuario } from "./actions";
 
@@ -19,9 +20,12 @@ export default async function UsuariosPage() {
         title="Usuários"
         description={`${usuarios.length} usuário(s) do sistema`}
         action={
-          <ButtonLink href="/usuarios/novo">
-            <Plus className="h-4 w-4" /> Novo usuário
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/usuarios/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo usuário
+            </ButtonLink>
+          </div>
         }
       />
 
@@ -33,7 +37,7 @@ export default async function UsuariosPage() {
               <th className="px-4 py-3">E-mail</th>
               <th className="px-4 py-3">Perfil</th>
               <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3 text-right">Ações</th>
+              <th className="px-4 py-3 text-right no-print">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -59,7 +63,7 @@ export default async function UsuariosPage() {
                     {u.active ? "Ativo" : "Inativo"}
                   </Badge>
                 </td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-right no-print">
                   {u.active && (
                     <DeleteButton
                       id={u.id}

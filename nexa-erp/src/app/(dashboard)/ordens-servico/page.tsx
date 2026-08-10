@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { Badge } from "@/components/ui/badge";
+import { PrintButton } from "@/components/ui/print-button";
 import {
   ETAPA_PRODUCAO_COLORS,
   ETAPA_PRODUCAO_LABELS,
@@ -36,13 +37,16 @@ export default async function OrdensServicoPage({
         title="Ordens de Serviço"
         description={`${ordens.length} OS registrada(s)`}
         action={
-          <ButtonLink href="/ordens-servico/novo">
-            <Plus className="h-4 w-4" /> Nova OS
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/ordens-servico/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Nova OS
+            </ButtonLink>
+          </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar por cliente..." />
       </div>
 

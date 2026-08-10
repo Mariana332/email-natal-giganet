@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { DeleteButton } from "@/components/ui/delete-button";
+import { PrintButton } from "@/components/ui/print-button";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { deleteCliente } from "./actions";
 
@@ -38,13 +39,16 @@ export default async function ClientesPage({
         title="Clientes"
         description={`${clientes.length} cliente(s) cadastrado(s)`}
         action={
-          <ButtonLink href="/clientes/novo">
-            <Plus className="h-4 w-4" /> Novo cliente
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/clientes/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo cliente
+            </ButtonLink>
+          </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar por nome, documento ou e-mail..." />
       </div>
 
@@ -56,7 +60,7 @@ export default async function ClientesPage({
               <th className="px-4 py-3">Tipo</th>
               <th className="px-4 py-3">Contato</th>
               <th className="px-4 py-3">Cidade</th>
-              <th className="px-4 py-3 text-right">Ações</th>
+              <th className="px-4 py-3 text-right no-print">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -98,7 +102,7 @@ export default async function ClientesPage({
                   <td className="px-4 py-3 text-nexa-charcoal">
                     {c.cidade ? `${c.cidade}${c.estado ? "/" + c.estado : ""}` : "—"}
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3 text-right no-print">
                     <div className="flex items-center justify-end gap-3">
                       {whatsappUrl && (
                         <a
