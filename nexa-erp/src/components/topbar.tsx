@@ -1,9 +1,10 @@
 "use client";
 
 import { Menu, LogOut } from "lucide-react";
-import { ROLE_LABELS } from "@/lib/permissions";
+import { ROLE_LABELS, canAccess } from "@/lib/permissions";
 import type { Role } from "@/generated/prisma/enums";
 import { logoutAction } from "@/app/(dashboard)/actions";
+import { GlobalSearch } from "@/components/global-search";
 
 export function Topbar({
   name,
@@ -31,7 +32,9 @@ export function Topbar({
         <Menu className="h-5 w-5" />
       </button>
 
-      <div className="hidden lg:block" />
+      <div className="hidden flex-1 justify-center px-4 lg:flex">
+        {canAccess(role, "cadastros") && <GlobalSearch />}
+      </div>
 
       <div className="flex items-center gap-4">
         <div className="text-right">
