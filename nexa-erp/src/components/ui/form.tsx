@@ -1,5 +1,6 @@
 import type {
   InputHTMLAttributes,
+  Ref,
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
@@ -22,8 +23,11 @@ export function Label({
   );
 }
 
-export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className={`${fieldBase} ${props.className ?? ""}`} />;
+export function Input({
+  ref,
+  ...props
+}: InputHTMLAttributes<HTMLInputElement> & { ref?: Ref<HTMLInputElement> }) {
+  return <input ref={ref} {...props} className={`${fieldBase} ${props.className ?? ""}`} />;
 }
 
 export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {
