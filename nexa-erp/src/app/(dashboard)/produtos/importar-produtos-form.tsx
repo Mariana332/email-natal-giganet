@@ -42,7 +42,7 @@ export function ImportarProdutosForm() {
   const pickerKey = JSON.stringify(state);
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    <div className="flex flex-col items-end gap-1 no-print">
       <form action={formAction} className="flex items-center gap-2">
         <FilePicker key={pickerKey} pending={pending} />
       </form>

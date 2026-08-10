@@ -25,7 +25,7 @@ export function AppShell({
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar name={name} role={role} onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-x-hidden p-4 sm:p-6">{children}</main>
+        <main className="flex-1 overflow-x-hidden p-4 sm:p-6 print:p-0">{children}</main>
       </div>
     </div>
   );

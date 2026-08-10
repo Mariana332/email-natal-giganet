@@ -108,6 +108,33 @@ export const TIPO_LANCAMENTO_LABELS: Record<string, string> = {
   DESPESA: "Despesa",
 };
 
+export const ETAPA_FUNIL_LABELS: Record<string, string> = {
+  NOVO_CONTATO: "Novo Contato",
+  QUALIFICADO: "Qualificado",
+  PROPOSTA_ENVIADA: "Proposta Enviada",
+  NEGOCIACAO: "Negociação",
+  GANHO: "Ganho",
+  PERDIDO: "Perdido",
+};
+
+export const ETAPA_FUNIL_COLORS: Record<string, "teal" | "green" | "red" | "yellow" | "gray" | "blue" | "purple"> = {
+  NOVO_CONTATO: "gray",
+  QUALIFICADO: "blue",
+  PROPOSTA_ENVIADA: "purple",
+  NEGOCIACAO: "yellow",
+  GANHO: "green",
+  PERDIDO: "red",
+};
+
+export const ETAPAS_FUNIL_ORDENADAS = [
+  "NOVO_CONTATO",
+  "QUALIFICADO",
+  "PROPOSTA_ENVIADA",
+  "NEGOCIACAO",
+  "GANHO",
+  "PERDIDO",
+] as const;
+
 export const ROLE_OPTIONS = [
   { value: "ADMIN", label: "Administrador" },
   { value: "VENDEDOR", label: "Vendedor" },

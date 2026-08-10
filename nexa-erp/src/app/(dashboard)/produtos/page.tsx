@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { DeleteButton } from "@/components/ui/delete-button";
 import { Badge } from "@/components/ui/badge";
+import { PrintButton } from "@/components/ui/print-button";
 import { CATEGORIA_PRODUTO_LABELS, formatCurrency } from "@/lib/labels";
 import { deleteProduto } from "./actions";
 import { ImportarProdutosForm } from "./importar-produtos-form";
@@ -33,15 +34,16 @@ export default async function ProdutosPage({
         description={`${produtos.length} item(ns) no catálogo`}
         action={
           <div className="flex flex-wrap items-start justify-end gap-2">
+            <PrintButton />
             <ImportarProdutosForm />
-            <ButtonLink href="/produtos/novo">
+            <ButtonLink href="/produtos/novo" className="no-print">
               <Plus className="h-4 w-4" /> Novo item
             </ButtonLink>
           </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar por nome..." />
       </div>
 
@@ -54,7 +56,7 @@ export default async function ProdutosPage({
               <th className="px-4 py-3">Unidade</th>
               <th className="px-4 py-3 text-right">Preço</th>
               <th className="px-4 py-3 text-right">Margem</th>
-              <th className="px-4 py-3 text-right">Ações</th>
+              <th className="px-4 py-3 text-right no-print">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +87,7 @@ export default async function ProdutosPage({
                   <td className="px-4 py-3 text-right text-nexa-gray">
                     {margem.toFixed(0)}%
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3 text-right no-print">
                     <DeleteButton id={p.id} action={deleteProduto} />
                   </td>
                 </tr>

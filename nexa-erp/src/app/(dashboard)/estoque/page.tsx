@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { Badge } from "@/components/ui/badge";
+import { PrintButton } from "@/components/ui/print-button";
 import { CATEGORIA_ESTOQUE_LABELS, formatCurrency } from "@/lib/labels";
 
 export default async function EstoquePage({
@@ -33,13 +34,16 @@ export default async function EstoquePage({
         title="Estoque"
         description={`${itens.length} insumo(s) cadastrado(s)${baixoEstoque > 0 ? ` · ${baixoEstoque} abaixo do mínimo` : ""}`}
         action={
-          <ButtonLink href="/estoque/novo">
-            <Plus className="h-4 w-4" /> Novo insumo
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/estoque/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo insumo
+            </ButtonLink>
+          </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar insumo..." />
       </div>
 

@@ -258,6 +258,18 @@ async function main() {
     });
   }
 
+  const leadsCount = await prisma.lead.count();
+  if (leadsCount === 0) {
+    await prisma.lead.createMany({
+      data: [
+        { nome: "Ana Beatriz", empresa: "Studio Ana Beatriz Fotografia", telefone: "(34) 99911-5566", origem: "Instagram", etapa: "NOVO_CONTATO", valorEstimado: 350, vendedorId: vendedor.id },
+        { nome: "Ricardo Nunes", empresa: "Auto Peças Nunes", telefone: "(34) 3226-7788", origem: "Indicação", etapa: "QUALIFICADO", valorEstimado: 1200, vendedorId: vendedor.id },
+        { nome: "Fernanda Lopes", empresa: "Doceria Fernanda", whatsapp: "(34) 99933-2211", origem: "Site", etapa: "NEGOCIACAO", valorEstimado: 480, clienteId: clientes[4].id, vendedorId: vendedor.id },
+        { nome: "Marcos Vinícius", empresa: "Academia Corpo & Vida", telefone: "(34) 3227-9900", origem: "Indicação", etapa: "PERDIDO", valorEstimado: 900, observacoes: "Fechou com concorrente.", vendedorId: vendedor.id },
+      ],
+    });
+  }
+
   console.log("Seed concluído:");
   console.log({ admin: admin.email, vendedor: vendedor.email, producao: producao.email, financeiro: financeiro.email, estoque: estoque.email });
   console.log("Senha para todos os usuários: nexa123");

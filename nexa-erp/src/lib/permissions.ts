@@ -10,6 +10,7 @@ export const ROLE_LABELS: Record<Role, string> = {
 
 export const MODULE_ACCESS = {
   dashboard: ["ADMIN", "VENDEDOR", "PRODUCAO", "FINANCEIRO", "ESTOQUE"],
+  crm: ["ADMIN", "VENDEDOR"],
   cadastros: ["ADMIN", "VENDEDOR"],
   orcamentos: ["ADMIN", "VENDEDOR"],
   ordensServico: ["ADMIN", "VENDEDOR", "PRODUCAO"],

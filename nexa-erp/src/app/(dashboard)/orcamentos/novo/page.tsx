@@ -7,8 +7,13 @@ import { Field, Input, Select, Textarea } from "@/components/ui/form";
 import { ItemEditor } from "@/components/item-editor";
 import { createOrcamento } from "../actions";
 
-export default async function NovoOrcamentoPage() {
+export default async function NovoOrcamentoPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ clienteId?: string; leadId?: string }>;
+}) {
   await requireModule("orcamentos");
+  const { clienteId, leadId } = await searchParams;
 
   const [clientes, produtos] = await Promise.all([
     prisma.cliente.findMany({ where: { ativo: true }, orderBy: { nome: "asc" } }),
@@ -28,9 +33,10 @@ export default async function NovoOrcamentoPage() {
 
       <div className="rounded-xl border border-nexa-gray-light bg-white p-6 shadow-sm">
         <ActionForm action={createOrcamento}>
+          {leadId && <input type="hidden" name="leadId" value={leadId} />}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <Field label="Cliente" required className="sm:col-span-2">
-              <Select name="clienteId" required defaultValue="">
+              <Select name="clienteId" required defaultValue={clienteId ?? ""}>
                 <option value="" disabled>
                   Selecione um cliente
                 </option>

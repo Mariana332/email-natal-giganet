@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { ButtonLink } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { DeleteButton } from "@/components/ui/delete-button";
+import { PrintButton } from "@/components/ui/print-button";
 import { deleteFornecedor } from "./actions";
 
 export default async function FornecedoresPage({
@@ -29,13 +30,16 @@ export default async function FornecedoresPage({
         title="Fornecedores"
         description={`${fornecedores.length} fornecedor(es) cadastrado(s)`}
         action={
-          <ButtonLink href="/fornecedores/novo">
-            <Plus className="h-4 w-4" /> Novo fornecedor
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <PrintButton />
+            <ButtonLink href="/fornecedores/novo" className="no-print">
+              <Plus className="h-4 w-4" /> Novo fornecedor
+            </ButtonLink>
+          </div>
         }
       />
 
-      <div className="mb-4">
+      <div className="mb-4 no-print">
         <SearchInput placeholder="Buscar por nome..." />
       </div>
 
@@ -46,7 +50,7 @@ export default async function FornecedoresPage({
               <th className="px-4 py-3">Nome</th>
               <th className="px-4 py-3">Contato</th>
               <th className="px-4 py-3">Cidade</th>
-              <th className="px-4 py-3 text-right">Ações</th>
+              <th className="px-4 py-3 text-right no-print">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +83,7 @@ export default async function FornecedoresPage({
                   </div>
                 </td>
                 <td className="px-4 py-3 text-nexa-charcoal">{f.cidade ?? "—"}</td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-right no-print">
                   <DeleteButton id={f.id} action={deleteFornecedor} />
                 </td>
               </tr>

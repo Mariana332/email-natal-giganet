@@ -96,6 +96,15 @@ enum FormaPagamento {
   PRAZO
 }
 
+enum EtapaFunil {
+  NOVO_CONTATO
+  QUALIFICADO
+  PROPOSTA_ENVIADA
+  NEGOCIACAO
+  GANHO
+  PERDIDO
+}
+
 // =========================== USUÁRIOS ===========================
 
 model User {
@@ -113,6 +122,7 @@ model User {
   producaoLogs    ProducaoLog[]
   movimentacoes   MovimentacaoEstoque[]
   lancamentos     LancamentoFinanceiro[]
+  leads           Lead[]
 
   @@map("users")
 }
@@ -141,6 +151,7 @@ model Cliente {
   orcamentos    Orcamento[]
   ordensServico OrdemServico[]
   lancamentos   LancamentoFinanceiro[]
+  leads         Lead[]
 
   @@map("clientes")
 }
@@ -183,6 +194,31 @@ model Produto {
   @@map("produtos")
 }
 
+// =========================== CRM / FUNIL DE VENDAS ===========================
+
+model Lead {
+  id            String     @id @default(cuid())
+  nome          String
+  empresa       String?
+  telefone      String?
+  whatsapp      String?
+  email         String?
+  origem        String?
+  etapa         EtapaFunil @default(NOVO_CONTATO)
+  valorEstimado Decimal?   @db.Decimal(12, 2)
+  observacoes   String?
+  clienteId     String?
+  cliente       Cliente?   @relation(fields: [clienteId], references: [id])
+  orcamentoId   String?    @unique
+  orcamento     Orcamento? @relation(fields: [orcamentoId], references: [id])
+  vendedorId    String
+  vendedor      User       @relation(fields: [vendedorId], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@map("leads")
+}
+
 // =========================== ORÇAMENTOS ===========================
 
 model Orcamento {
@@ -202,6 +238,7 @@ model Orcamento {
 
   itens         ItemOrcamento[]
   ordemServico  OrdemServico?
+  lead          Lead?
 
   @@map("orcamentos")
 }

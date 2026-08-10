@@ -14,6 +14,7 @@ import {
   Boxes,
   UserCog,
   Settings,
+  Target,
   X,
 } from "lucide-react";
 import type { Role } from "@/generated/prisma/enums";
@@ -50,6 +51,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "Comercial",
     items: [
+      { href: "/crm", label: "CRM", icon: Target, module: "crm" },
       { href: "/orcamentos", label: "Orçamentos", icon: FileText, module: "orcamentos" },
       { href: "/ordens-servico", label: "Ordens de Serviço", icon: ClipboardList, module: "ordensServico" },
       { href: "/producao", label: "Produção", icon: Kanban, module: "producao" },
@@ -138,13 +140,13 @@ export function Sidebar({
   return (
     <>
       {/* Desktop */}
-      <aside className="hidden w-[260px] shrink-0 border-r border-black/20 lg:block">
+      <aside className="hidden w-[260px] shrink-0 border-r border-black/20 lg:block print:hidden">
         {content}
       </aside>
 
       {/* Mobile */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden print:hidden">
           <div
             className="absolute inset-0 bg-black/50"
             onClick={onClose}
