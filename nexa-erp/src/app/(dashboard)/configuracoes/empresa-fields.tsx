@@ -38,13 +38,31 @@ export function EmpresaFields({ defaultValues }: { defaultValues?: Empresa | nul
         <Textarea name="endereco" rows={2} defaultValue={defaultValues?.endereco ?? ""} />
       </Field>
 
-      <Field label="URL do logo">
-        <Input name="logoUrl" placeholder="https://..." defaultValue={defaultValues?.logoUrl ?? ""} />
-      </Field>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Field label="URL do logo">
+          <Input name="logoUrl" placeholder="https://..." defaultValue={defaultValues?.logoUrl ?? ""} />
+        </Field>
+        <Field label="Markup padrão (%)">
+          <Input
+            type="number"
+            name="markupPadrao"
+            step="0.01"
+            min="0"
+            placeholder="Ex: 100"
+            defaultValue={
+              defaultValues?.markupPadrao !== null && defaultValues?.markupPadrao !== undefined
+                ? Number(defaultValues.markupPadrao)
+                : undefined
+            }
+          />
+        </Field>
+      </div>
 
       <p className="text-xs text-nexa-gray">
         O WhatsApp central é usado por todos os vendedores para enviar orçamentos e propostas —
         aparece no botão &ldquo;Enviar por WhatsApp&rdquo; dos orçamentos e no cabeçalho do PDF.
+        O markup padrão é sugerido automaticamente ao cadastrar um novo produto (ex: 100% dobra o
+        custo para formar o preço de venda).
       </p>
     </div>
   );

@@ -70,6 +70,7 @@ async function main() {
       email: "contato@nexaprint.com.br",
       endereco: "Rua Celmério Guimarães, 123 - Centro - Araxá/MG",
       instagram: "@nexaprint.araxa",
+      markupPadrao: 100,
     },
   });
 

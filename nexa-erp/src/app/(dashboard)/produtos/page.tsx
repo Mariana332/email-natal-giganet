@@ -8,6 +8,7 @@ import { DeleteButton } from "@/components/ui/delete-button";
 import { Badge } from "@/components/ui/badge";
 import { CATEGORIA_PRODUTO_LABELS, formatCurrency } from "@/lib/labels";
 import { deleteProduto } from "./actions";
+import { ImportarProdutosForm } from "./importar-produtos-form";
 
 export default async function ProdutosPage({
   searchParams,
@@ -31,9 +32,12 @@ export default async function ProdutosPage({
         title="Produtos & Serviços"
         description={`${produtos.length} item(ns) no catálogo`}
         action={
-          <ButtonLink href="/produtos/novo">
-            <Plus className="h-4 w-4" /> Novo item
-          </ButtonLink>
+          <div className="flex flex-wrap items-start justify-end gap-2">
+            <ImportarProdutosForm />
+            <ButtonLink href="/produtos/novo">
+              <Plus className="h-4 w-4" /> Novo item
+            </ButtonLink>
+          </div>
         }
       />
 
