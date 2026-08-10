@@ -81,11 +81,6 @@ export async function updateEtapaLead(id: string, etapa: EtapaFunil): Promise<vo
   revalidatePath(`/crm/${id}`);
 }
 
-export async function moveEtapaLeadForm(id: string, formData: FormData): Promise<void> {
-  const etapa = formData.get("etapa") as EtapaFunil;
-  await updateEtapaLead(id, etapa);
-}
-
 export async function convertLeadToCliente(id: string): Promise<void> {
   await requireModule("crm");
 

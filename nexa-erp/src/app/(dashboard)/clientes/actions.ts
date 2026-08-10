@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireModule } from "@/lib/auth-guard";
+import { buscarClienteDuplicado } from "@/lib/duplicados";
 import type { ActionState } from "@/components/ui/action-form";
 
 const clienteSchema = z.object({
@@ -39,6 +40,13 @@ export async function createCliente(
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
   }
 
+  if (parsed.data.documento) {
+    const duplicado = await buscarClienteDuplicado({ documento: parsed.data.documento });
+    if (duplicado) {
+      return { error: `Já existe um cliente cadastrado com este CPF/CNPJ: ${duplicado.nome}.` };
+    }
+  }
+
   const cliente = await prisma.cliente.create({ data: parsed.data });
   revalidatePath("/clientes");
   redirect(`/clientes/${cliente.id}`);
@@ -54,6 +62,13 @@ export async function updateCliente(
   const parsed = parseCliente(formData);
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
+  }
+
+  if (parsed.data.documento) {
+    const duplicado = await buscarClienteDuplicado({ documento: parsed.data.documento, excludeId: id });
+    if (duplicado) {
+      return { error: `Já existe um cliente cadastrado com este CPF/CNPJ: ${duplicado.nome}.` };
+    }
   }
 
   await prisma.cliente.update({ where: { id }, data: parsed.data });
