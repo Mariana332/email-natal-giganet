@@ -9,31 +9,60 @@ import { ButtonLink } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ETAPA_PRODUCAO_COLORS, ETAPA_PRODUCAO_LABELS, formatCurrency, formatDate } from "@/lib/labels";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { canAccess } from "@/lib/permissions";
 import { updateCliente } from "../actions";
 import { ClienteFields } from "../cliente-fields";
+import { ClienteStatusCard } from "./cliente-status-card";
 
 export default async function EditarClientePage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireModule("cadastros");
+  const session = await requireModule("cadastros");
   const { id } = await params;
+  const mostrarFinanceiro = canAccess(session.user.role, "financeiro");
 
-  const cliente = await prisma.cliente.findUnique({
-    where: { id },
-    include: {
-      ordensServico: {
-        orderBy: { createdAt: "desc" },
-        take: 5,
+  const [cliente, ultimoOrcamento, pendentes] = await Promise.all([
+    prisma.cliente.findUnique({
+      where: { id },
+      include: {
+        ordensServico: {
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        },
       },
-    },
-  });
+    }),
+    prisma.orcamento.findFirst({ where: { clienteId: id }, orderBy: { createdAt: "desc" } }),
+    mostrarFinanceiro
+      ? prisma.lancamentoFinanceiro.findMany({
+          where: { clienteId: id, tipo: "RECEITA", status: { in: ["PENDENTE", "ATRASADO"] } },
+          orderBy: { dataVencimento: "asc" },
+        })
+      : Promise.resolve([]),
+  ]);
 
   if (!cliente) notFound();
 
   const boundAction = updateCliente.bind(null, id);
   const whatsappUrl = buildWhatsAppUrl(cliente.whatsapp || cliente.telefone);
+
+  const gruposPendencia = new Map<number, { quantidade: number; proximoVencimento: Date | null }>();
+  for (const l of pendentes) {
+    const valor = Number(l.valor);
+    const atual = gruposPendencia.get(valor) ?? { quantidade: 0, proximoVencimento: null };
+    atual.quantidade += 1;
+    if (!atual.proximoVencimento || l.dataVencimento < atual.proximoVencimento) {
+      atual.proximoVencimento = l.dataVencimento;
+    }
+    gruposPendencia.set(valor, atual);
+  }
+  const pendencias = Array.from(gruposPendencia.entries()).map(([valor, info]) => ({
+    valor,
+    quantidade: info.quantidade,
+    proximoVencimento: info.proximoVencimento ? formatDate(info.proximoVencimento) : null,
+  }));
+  const totalPendente = pendentes.reduce((acc, l) => acc + Number(l.valor), 0);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -94,6 +123,21 @@ export default async function EditarClientePage({
           )}
         </div>
       </div>
+
+      <ClienteStatusCard
+        ultimoOrcamento={
+          ultimoOrcamento
+            ? {
+                numero: ultimoOrcamento.numero,
+                status: ultimoOrcamento.status,
+                data: formatDate(ultimoOrcamento.createdAt),
+              }
+            : null
+        }
+        pendencias={pendencias}
+        totalPendente={totalPendente}
+        mostrarFinanceiro={mostrarFinanceiro}
+      />
     </div>
   );
 }

@@ -1,14 +1,24 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Loader2, TriangleAlert } from "lucide-react";
 import { Field, Input, Select, Textarea } from "@/components/ui/form";
 import { buscarCep } from "@/lib/cep";
 import type { Cliente } from "@/generated/prisma/client";
 
+type Duplicado = { id: string; nome: string; campo: "documento" | "telefone" | "email" } | null;
+
+const CAMPO_LABEL: Record<NonNullable<Duplicado>["campo"], string> = {
+  documento: "CPF/CNPJ",
+  telefone: "telefone/WhatsApp",
+  email: "e-mail",
+};
+
 export function ClienteFields({ defaultValues }: { defaultValues?: Cliente }) {
   const [buscandoCep, setBuscandoCep] = useState(false);
   const [cepNaoEncontrado, setCepNaoEncontrado] = useState(false);
+  const [duplicado, setDuplicado] = useState<Duplicado>(null);
   const enderecoRef = useRef<HTMLInputElement>(null);
   const bairroRef = useRef<HTMLInputElement>(null);
   const cidadeRef = useRef<HTMLInputElement>(null);
@@ -36,8 +46,33 @@ export function ClienteFields({ defaultValues }: { defaultValues?: Cliente }) {
     numeroRef.current?.focus();
   }
 
+  async function verificarDuplicado(campo: "documento" | "telefone" | "whatsapp" | "email", valor: string) {
+    if (!valor.trim()) return;
+
+    const params = new URLSearchParams({ [campo]: valor });
+    if (defaultValues?.id) params.set("excludeId", defaultValues.id);
+
+    const res = await fetch(`/api/clientes/verificar-duplicado?${params.toString()}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.duplicado) setDuplicado(data.duplicado);
+  }
+
   return (
     <div className="space-y-5">
+      {duplicado && (
+        <div className="flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+          <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>
+            Já existe um cliente cadastrado com esse {CAMPO_LABEL[duplicado.campo]}:{" "}
+            <Link href={`/clientes/${duplicado.id}`} className="font-semibold underline hover:no-underline">
+              {duplicado.nome}
+            </Link>
+            .
+          </p>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Field label="Tipo" required>
           <Select name="tipo" defaultValue={defaultValues?.tipo ?? "FISICA"}>
@@ -52,18 +87,35 @@ export function ClienteFields({ defaultValues }: { defaultValues?: Cliente }) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Field label="CPF / CNPJ">
-          <Input name="documento" defaultValue={defaultValues?.documento ?? ""} />
+          <Input
+            name="documento"
+            defaultValue={defaultValues?.documento ?? ""}
+            onBlur={(e) => verificarDuplicado("documento", e.target.value)}
+          />
         </Field>
         <Field label="Telefone">
-          <Input name="telefone" defaultValue={defaultValues?.telefone ?? ""} />
+          <Input
+            name="telefone"
+            defaultValue={defaultValues?.telefone ?? ""}
+            onBlur={(e) => verificarDuplicado("telefone", e.target.value)}
+          />
         </Field>
         <Field label="WhatsApp">
-          <Input name="whatsapp" defaultValue={defaultValues?.whatsapp ?? ""} />
+          <Input
+            name="whatsapp"
+            defaultValue={defaultValues?.whatsapp ?? ""}
+            onBlur={(e) => verificarDuplicado("whatsapp", e.target.value)}
+          />
         </Field>
       </div>
 
       <Field label="E-mail">
-        <Input type="email" name="email" defaultValue={defaultValues?.email ?? ""} />
+        <Input
+          type="email"
+          name="email"
+          defaultValue={defaultValues?.email ?? ""}
+          onBlur={(e) => verificarDuplicado("email", e.target.value)}
+        />
       </Field>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
