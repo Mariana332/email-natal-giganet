@@ -123,6 +123,7 @@ model User {
   movimentacoes   MovimentacaoEstoque[]
   lancamentos     LancamentoFinanceiro[]
   leads           Lead[]
+  mensagens       MensagemLog[]
 
   @@map("users")
 }
@@ -152,6 +153,7 @@ model Cliente {
   ordensServico OrdemServico[]
   lancamentos   LancamentoFinanceiro[]
   leads         Lead[]
+  mensagens     MensagemLog[]
 
   @@map("clientes")
 }
@@ -217,6 +219,36 @@ model Lead {
   updatedAt     DateTime   @updatedAt
 
   @@map("leads")
+}
+
+// =========================== CENTRAL DE MENSAGENS ===========================
+
+enum DirecaoMensagem {
+  ENVIADA
+  RECEBIDA
+}
+
+model MensagemTemplate {
+  id        String   @id @default(cuid())
+  nome      String
+  conteudo  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("mensagem_templates")
+}
+
+model MensagemLog {
+  id        String          @id @default(cuid())
+  clienteId String
+  cliente   Cliente         @relation(fields: [clienteId], references: [id])
+  conteudo  String
+  direcao   DirecaoMensagem @default(ENVIADA)
+  userId    String?
+  usuario   User?           @relation(fields: [userId], references: [id])
+  createdAt DateTime        @default(now())
+
+  @@map("mensagem_logs")
 }
 
 // =========================== ORÇAMENTOS ===========================
