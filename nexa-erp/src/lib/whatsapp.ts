@@ -4,7 +4,7 @@ export function buildWhatsAppUrl(phone: string | null | undefined, message?: str
   const digits = (phone ?? "").replace(/\D/g, "");
   if (!digits) return null;
   const withCountryCode = digits.startsWith("55") ? digits : `55${digits}`;
-  const query = message ? `?text=${encodeURIComponent(message)}` : "";
+  const query = message ? `&text=${encodeURIComponent(message)}` : "";
   return `https://api.whatsapp.com/send?phone=${withCountryCode}${query}`;
 }
 

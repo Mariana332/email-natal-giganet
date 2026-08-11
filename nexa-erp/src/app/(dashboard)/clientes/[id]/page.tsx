@@ -13,6 +13,7 @@ import { canAccess } from "@/lib/permissions";
 import { updateCliente } from "../actions";
 import { ClienteFields } from "../cliente-fields";
 import { ClienteStatusCard } from "./cliente-status-card";
+import { CentralMensagens } from "./central-mensagens";
 
 export default async function EditarClientePage({
   params,
@@ -23,7 +24,7 @@ export default async function EditarClientePage({
   const { id } = await params;
   const mostrarFinanceiro = canAccess(session.user.role, "financeiro");
 
-  const [cliente, ultimoOrcamento, pendentes] = await Promise.all([
+  const [cliente, ultimoOrcamento, pendentes, templates, mensagens] = await Promise.all([
     prisma.cliente.findUnique({
       where: { id },
       include: {
@@ -40,9 +41,18 @@ export default async function EditarClientePage({
           orderBy: { dataVencimento: "asc" },
         })
       : Promise.resolve([]),
+    prisma.mensagemTemplate.findMany({ orderBy: { nome: "asc" } }),
+    prisma.mensagemLog.findMany({
+      where: { clienteId: id },
+      include: { usuario: true },
+      orderBy: { createdAt: "desc" },
+      take: 30,
+    }),
   ]);
 
   if (!cliente) notFound();
+
+  const { ordensServico, ...clienteSemRelacoes } = cliente;
 
   const boundAction = updateCliente.bind(null, id);
   const whatsappUrl = buildWhatsAppUrl(cliente.whatsapp || cliente.telefone);
@@ -63,6 +73,14 @@ export default async function EditarClientePage({
     proximoVencimento: info.proximoVencimento ? formatDate(info.proximoVencimento) : null,
   }));
   const totalPendente = pendentes.reduce((acc, l) => acc + Number(l.valor), 0);
+
+  const mensagensFormatadas = mensagens.map((m) => ({
+    id: m.id,
+    conteudo: m.conteudo,
+    direcao: m.direcao,
+    usuario: m.usuario?.name ?? null,
+    data: m.createdAt.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }),
+  }));
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -85,7 +103,7 @@ export default async function EditarClientePage({
 
       <div className="rounded-xl border border-nexa-gray-light bg-white p-6 shadow-sm">
         <ActionForm action={boundAction}>
-          <ClienteFields defaultValues={cliente} />
+          <ClienteFields defaultValues={clienteSemRelacoes} />
           <div className="mt-6 flex justify-end gap-2">
             <ButtonLink href="/clientes" variant="secondary">
               Voltar
@@ -100,7 +118,7 @@ export default async function EditarClientePage({
           Últimas ordens de serviço
         </h2>
         <div className="mt-3 space-y-2">
-          {cliente.ordensServico.map((os) => (
+          {ordensServico.map((os) => (
             <Link
               key={os.id}
               href={`/ordens-servico/${os.id}`}
@@ -116,13 +134,21 @@ export default async function EditarClientePage({
               </span>
             </Link>
           ))}
-          {cliente.ordensServico.length === 0 && (
+          {ordensServico.length === 0 && (
             <p className="text-sm text-nexa-gray">
               Este cliente ainda não possui ordens de serviço.
             </p>
           )}
         </div>
       </div>
+
+      <CentralMensagens
+        clienteId={cliente.id}
+        clienteNome={cliente.nome}
+        telefone={cliente.whatsapp || cliente.telefone}
+        templates={templates}
+        mensagens={mensagensFormatadas}
+      />
 
       <ClienteStatusCard
         ultimoOrcamento={
