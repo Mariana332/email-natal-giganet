@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Plano de Propostas — Fanny Melo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Plano de Propostas de Fanny Melo, candidata a Deputada Federal — PODEMOS 2060. Desenvolver, cuidar e incluir Minas e o Brasil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #6C2EB5;
+    --purple-dark: #4B1D82;
+    --teal: #00B398;
+    --yellow: #FDB913;
+    --plum: #5B1F63;
+    --ink: #221c2b;
+    --muted: #6b6577;
+    --bg: #faf8fc;
+    --card: #ffffff;
+    --border: #ece7f3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    line-height: 1.55;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 0;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; }
+
+  .hero {
+    background: linear-gradient(160deg, var(--purple) 0%, var(--purple-dark) 65%);
+    color: #fff;
+    padding: 20px 20px 36px;
+  }
+  .hero-top {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.75);
+    padding-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .badge-number {
+    background: var(--yellow);
+    color: var(--purple-dark);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .hero-body { max-width: 780px; margin: 0 auto; text-align: center; }
+  .eyebrow {
+    color: var(--yellow);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero h1 { font-size: clamp(32px, 7vw, 52px); }
+  .hero h1 span { color: var(--yellow); display: block; }
+  .hero-sub {
+    margin-top: 18px;
+    font-size: clamp(20px, 4.5vw, 26px);
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .hero-tag {
+    display: inline-block;
+    margin-top: 8px;
+    background: var(--plum);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+  }
+  .party {
+    margin-top: 22px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+  }
+  .cta-row {
+    margin-top: 26px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    border: 2px solid transparent;
+  }
+  .btn-primary { background: var(--yellow); color: var(--purple-dark); }
+  .btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,0.55); }
+
+  .stripe {
+    height: 8px;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0 24px, var(--teal) 24px 48px, var(--purple) 48px 72px);
+  }
+
+  main { max-width: 780px; margin: 0 auto; padding: 40px 20px 10px; }
+
+  .bio {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-bottom: 36px;
+  }
+  .bio h2 { color: var(--purple); font-size: 24px; margin-bottom: 14px; }
+  .bio p { margin: 0 0 14px; color: var(--ink); }
+  .bio p:last-child { margin-bottom: 0; }
+  .bio .quote {
+    font-weight: 700;
+    color: var(--plum);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .section-title h2 { color: var(--purple); font-size: clamp(26px, 5vw, 34px); }
+  .section-title p { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+  nav.toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 28px 0 36px;
+  }
+  nav.toc summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--purple-dark);
+    font-family: 'Montserrat', sans-serif;
+  }
+  nav.toc ol {
+    columns: 2;
+    gap: 20px;
+    margin: 16px 0 0;
+    padding-left: 20px;
+    font-size: 14px;
+  }
+  nav.toc li { margin-bottom: 8px; break-inside: avoid; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--purple); text-decoration: underline; }
+
+  .proposal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--teal);
+    border-radius: 16px;
+    padding: 24px 22px;
+    margin-bottom: 20px;
+    scroll-margin-top: 16px;
+  }
+  .proposal:nth-of-type(3n+2) { border-left-color: var(--purple); }
+  .proposal:nth-of-type(3n) { border-left-color: var(--yellow); }
+  .proposal h3 {
+    font-size: 17px;
+    color: var(--purple-dark);
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
+  }
+  .proposal .intro {
+    font-size: 14.5px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .proposal ul { margin: 0; padding-left: 20px; }
+  .proposal li { margin-bottom: 8px; font-size: 15px; }
+  .proposal li:last-child { margin-bottom: 0; }
+  .proposal .callout {
+    margin-top: 14px;
+    font-weight: 700;
+    color: var(--plum);
+    font-size: 15px;
+  }
+
+  .closing {
+    background: linear-gradient(150deg, var(--teal) 0%, #018a76 100%);
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px 24px;
+    margin: 36px 0;
+    text-align: center;
+  }
+  .closing h2 { font-size: clamp(22px, 5vw, 30px); margin-bottom: 14px; }
+  .closing p { max-width: 620px; margin: 0 auto 14px; }
+  .closing ul { list-style: none; padding: 0; margin: 18px 0; text-align: left; max-width: 420px; margin-inline: auto; }
+  .closing li { margin-bottom: 8px; font-weight: 600; }
+  .closing .slogan { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px; margin-top: 10px; }
+  .closing .motto { font-weight: 500; opacity: 0.9; margin-top: 4px; }
+
+  .pdf-embed {
+    margin: 30px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .pdf-embed header {
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .pdf-embed header strong { font-family: 'Montserrat', sans-serif; color: var(--purple-dark); }
+  .pdf-embed object, .pdf-embed iframe {
+    width: 100%;
+    height: 70vh;
+    min-height: 420px;
+    border: 0;
+    display: block;
+  }
+  .link-small {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--purple);
+    text-decoration: none;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px 50px;
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  footer .footer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 520px) {
+    nav.toc ol { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-top">
+      <span>PROPAGANDA ELEITORAL</span>
+      <span class="badge-number">PODEMOS · 2060</span>
+    </div>
+    <div class="hero-body">
+      <div class="eyebrow">Deputada Federal</div>
+      <h1>Plano de<span>Propostas</span></h1>
+      <div class="hero-sub">Fanny Melo</div>
+      <span class="hero-tag">Desenvolver, cuidar e incluir</span>
+      <div class="party">Coragem para mudar, sensibilidade para cuidar!</div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#pdf">Ver o plano completo</a>
+        <a class="btn btn-secondary" href="assets/Fanny_Melo_-_Plano_de_Propostas.pdf" download>Baixar PDF</a>
+      </div>
+    </div>
+  </header>
+  <div class="stripe"></div>
+
+  <main>
+
+    <section class="bio">
+      <h2>Sou Fanny Ferreira Melo</h2>
+      <p>… mineira de Patos de Minas, filha de pequenos produtores rurais e uma entre seis irmãos. Sou casada com Eduardo Maia, mãe do Pedro e do Henrique e tenho duas filhas do coração, Clara e Marina.</p>
+      <p>Vivi parte da infância na roça e estudei na escola rural de Santiago, distrito de Presidente Olegário. Meus pais, Joana e Júlio, deixaram o campo em busca de oportunidades. Mesmo trabalhando e cuidando dos filhos, voltaram a estudar, concluíram o supletivo e se tornaram servidores públicos: minha mãe, professora; meu pai, técnico do IBGE.</p>
+      <p>O exemplo dos meus pais me ensinou que a educação pública muda a história de uma família. Estudei em escola pública, formei-me na Universidade Federal de Viçosa e fiz mestrado na Universidade Federal de Uberlândia. Depois, não parei mais de estudar: fiz graduação em Gestão Pública e inúmeras pós-graduações em áreas como direito constitucional, assistência social, gestão, saúde e segurança pública.</p>
+      <p>Trabalhei como engenheira na iniciativa privada em empresas nacionais e multinacionais e, em 2003, assumi por concurso público, o cargo de oficial do Ministério Público de Minas Gerais. Desde então, atuo na defesa das pessoas com deficiência, das pessoas idosas, das crianças e dos adolescentes e nas áreas da saúde e da educação. Também atuo como professora e participo de entidades que protegem e promovem famílias vulneráveis e trabalhadores.</p>
+      <p>Conheço a realidade do campo e da cidade, da indústria e do serviço público. Sou candidata a Deputada Federal para representar quem trabalha, cuida, produz e luta todos os dias por oportunidade e dignidade.</p>
+      <p>Quero defender o desenvolvimento dos municípios mineiros, fortalecer os serviços públicos e ajudar a construir uma nação mais justa, onde o trabalho seja valorizado, os direitos sejam respeitados e ninguém seja deixado para trás.</p>
+      <p class="quote">Conheça nossas propostas para "desenvolver, cuidar e incluir" Minas e Brasil.</p>
+    </section>
+
+    <div class="section-title">
+      <h2>Plano de Propostas</h2>
+      <p>Um mandato para cuidar das pessoas, valorizar quem trabalha e construir uma Minas e um Brasil mais justo, inclusivo e sustentável.</p>
+    </div>
+
+    <nav class="toc">
+      <details>
+        <summary>Ver todos os temas</summary>
+        <ol>
+          <li><a href="#p1">Justiça social</a></li>
+          <li><a href="#p2">Quem cuida também precisa ser cuidado</a></li>
+          <li><a href="#p3">Crianças e adolescentes</a></li>
+          <li><a href="#p4">Serviço público forte</a></li>
+          <li><a href="#p5">Trabalho digno</a></li>
+          <li><a href="#p6">Mulheres</a></li>
+          <li><a href="#p7">Pessoas com deficiência</a></li>
+          <li><a href="#p8">BPC</a></li>
+          <li><a href="#p9">Bolsa Família</a></li>
+          <li><a href="#p10">Pessoas idosas</a></li>
+          <li><a href="#p11">Agricultura familiar</a></li>
+          <li><a href="#p12">Feirantes e pequenos empreendedores</a></li>
+          <li><a href="#p13">Saúde pública</a></li>
+          <li><a href="#p14">Desenvolvimento econômico</a></li>
+          <li><a href="#p15">Cultura viva e tradições populares</a></li>
+          <li><a href="#p16">Tarifa zero</a></li>
+          <li><a href="#p17">Cidades inteligentes</a></li>
+          <li><a href="#p18">Minas Gerais forte em Brasília</a></li>
+          <li><a href="#p19">Mandato participativo</a></li>
+        </ol>
+      </details>
+    </nav>
+
+    <article class="proposal" id="p1">
+      <h3>1. Justiça social — direitos para quem mais precisa</h3>
+      <ul>
+        <li>Defender o combate à pobreza, à fome e às desigualdades sociais e regionais.</li>
+        <li>Fortalecer o SUS, SUAS, educação pública, previdência e assistência social.</li>
+        <li>Defender políticas públicas de moradia digna e regularização fundiária.</li>
+        <li>Ampliar o financiamento federal de CRAS, CREAS e demais equipamentos da rede de proteção social.</li>
+        <li>Defender orçamento público que priorize direitos sociais e investimentos que melhorem efetivamente a vida das pessoas.</li>
+        <li>Trabalhar por uma tributação mais justa e progressiva, fazendo com que quem possui maior capacidade econômica contribua proporcionalmente mais.</li>
+        <li>Combater privilégios, desperdícios, corrupção e utilização do dinheiro público para interesses particulares.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p2">
+      <h3>2. Quem cuida também precisa ser cuidado</h3>
+      <p class="intro">Esta será uma das marcas do mandato: reconhecer o cuidado como trabalho socialmente indispensável e proteger quem abre mão de renda, carreira e tempo para cuidar de outra pessoa.</p>
+      <ul>
+        <li>Criar a Renda Cidadã do Cuidado, buscando assegurar renda mínima de um salário mínimo às mães atípicas e demais responsáveis pelo cuidado permanente de pessoas com deficiência, pessoas idosas ou outras pessoas em condição de dependência ou vulnerabilidade.</li>
+        <li>Criar um Sistema Nacional de Registro do Trabalho de Cuidado, para reconhecer e contabilizar o período dedicado ao cuidado para fins de proteção previdenciária e aposentadoria.</li>
+        <li>Defender políticas de proteção previdenciária para cuidadores familiares.</li>
+        <li>Ampliar serviços públicos de apoio e acolhimento às famílias cuidadoras.</li>
+        <li>Defender políticas de saúde mental, descanso e apoio psicossocial para quem cuida.</li>
+        <li>Incentivar políticas que permitam conciliar trabalho, maternidade, cuidado e vida familiar.</li>
+      </ul>
+      <p class="callout">Cuidar de quem precisa não pode significar abrir mão do próprio futuro.</p>
+    </article>
+
+    <article class="proposal" id="p3">
+      <h3>3. Crianças e adolescentes — creche, educação e proteção</h3>
+      <ul>
+        <li>Trabalhar para assegurar creche para todas as crianças que necessitem de vaga.</li>
+        <li>Ampliar o financiamento federal para tornar a educação em tempo integral uma realidade acessível a todas as crianças e adolescentes.</li>
+        <li>Fortalecer o Fundeb e os investimentos federais na educação básica.</li>
+        <li>Apoiar a expansão de creches, escolas e infraestrutura educacional nos municípios.</li>
+        <li>Defender alimentação escolar saudável e adequada.</li>
+        <li>Ampliar políticas de proteção contra violência, exploração e abandono.</li>
+        <li>Fortalecer Conselhos Tutelares e a rede de proteção à infância.</li>
+        <li>Defender políticas públicas de esporte, cultura, formação profissional e primeiro emprego para adolescentes e jovens.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p4">
+      <h3>4. Serviço público forte. Servidor valorizado.</h3>
+      <p class="intro">O Pacto pelo Serviço Público reivindica concurso, valorização salarial, negociação permanente, modernização das carreiras, proteção física e psicológica e enfrentamento à precarização.</p>
+      <ul>
+        <li>Defender o concurso público como regra de ingresso e combater a substituição indiscriminada de servidores por vínculos precários.</li>
+        <li>Defender a estabilidade, protegendo o servidor contra perseguições e interferências político-partidárias.</li>
+        <li>Combater reformas administrativas que retirem direitos, precarizem os serviços ou enfraqueçam o Estado.</li>
+        <li>Defender revisão geral, valorização remuneratória e desenvolvimento nas carreiras.</li>
+        <li>Defender a negociação coletiva no serviço público, com regulamentação da Convenção 151 da OIT, por meio da aprovação o PL 1893/2026.</li>
+        <li>Defender a implementação do Marco Regulatório das Relações de Trabalho no Serviço Público.</li>
+        <li>Defender a democratização da gestão das instituições públicas brasileiras, com a ampliação da participação dos servidores públicos efetivos na escolha de seus dirigentes, assegurando-lhes direito a voto.</li>
+        <li>Defender a participação efetiva e paritária dos servidores públicos e dos usuários nos conselhos e demais órgãos colegiados das instituições públicas, assegurando representação legítima, direito a voz e voto, transparência nos processos de escolha e condições para o exercício independente do mandato.</li>
+        <li>Fortalecer sindicatos e assegurar liberdade sindical.</li>
+        <li>Combater assédio moral, sexual, discriminação e todas as formas de violência no serviço público.</li>
+        <li>Defender políticas de saúde física e mental e prevenção ao adoecimento relacionado ao trabalho.</li>
+        <li>Defender aposentadorias dignas e segurança previdenciária.</li>
+        <li>Apoiar modernização, digitalização e uso responsável da inteligência artificial, sem substituir pessoas, retirar direitos ou transformar tecnologia em instrumento de cobrança desumana de produtividade.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p5">
+      <h3>5. Trabalho digno — direito de trabalhar e direito de viver</h3>
+      <ul>
+        <li>Defender a redução da jornada de trabalho sem redução salarial e o fim da escala 6x1.</li>
+        <li>Defender salários dignos e valorização do salário mínimo.</li>
+        <li>Combater precarização, trabalho análogo à escravidão e fraudes trabalhistas.</li>
+        <li>Defender liberdade sindical e negociação coletiva.</li>
+        <li>Trabalhar pela plena implementação da Convenção 190 da OIT, assegurando ambientes de trabalho livres de violência e assédio.</li>
+        <li>Defender saúde, segurança e dignidade no ambiente de trabalho.</li>
+        <li>Ampliar qualificação profissional e políticas de primeiro emprego.</li>
+        <li>Proteger trabalhadores autônomos e informais.</li>
+        <li>Apoiar pequenos empreendedores, artesãos, feirantes e trabalhadores da economia popular.</li>
+      </ul>
+      <p class="callout">Trabalhar para viver. Não viver apenas para trabalhar.</p>
+    </article>
+
+    <article class="proposal" id="p6">
+      <h3>6. Mulheres — proteção, autonomia e igualdade</h3>
+      <ul>
+        <li>Combater todas as formas de violência contra as mulheres.</li>
+        <li>Ampliar recursos para Delegacias Especializadas, Casas da Mulher Brasileira e redes municipais de proteção.</li>
+        <li>Defender igualdade salarial entre mulheres e homens.</li>
+        <li>Ampliar creches e educação integral como instrumentos de autonomia econômica das mulheres.</li>
+        <li>Criar políticas específicas para mães solo e mães atípicas.</li>
+        <li>Ampliar crédito e apoio ao empreendedorismo feminino.</li>
+        <li>Defender políticas de qualificação, emprego e geração de renda.</li>
+        <li>Ampliar a participação feminina nos espaços de poder e decisão.</li>
+        <li>Fortalecer políticas de saúde integral da mulher.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p7">
+      <h3>7. Pessoas com deficiência — inclusão de verdade</h3>
+      <p class="intro">A Carta-Compromisso apresentada à candidatura reivindica participação das próprias pessoas com deficiência na construção das políticas públicas e medidas concretas para acessibilidade, tecnologias assistivas e inclusão econômica.</p>
+      <ul>
+        <li>Criar um Programa Nacional de Acessibilidade Plena, abrangendo acessibilidade arquitetônica, urbana, comunicacional e digital.</li>
+        <li>Defender redução ou isenção tributária para tecnologias assistivas e produtos de acessibilidade, reduzindo o custo da inclusão.</li>
+        <li>Defender justiça tributária para pessoas com deficiência.</li>
+        <li>Ampliar acesso ao diagnóstico, habilitação, reabilitação, terapias, medicamentos e tecnologias assistivas pelo SUS.</li>
+        <li>Garantir educação inclusiva com profissionais capacitados, recursos adequados, acessibilidade e atendimento educacional especializado.</li>
+        <li>Restabelecer as escolas especializadas como política pública permanente, assegurando às famílias o direito de escolha entre o ensino especializado e a rede regular inclusiva.</li>
+        <li>Fortalecer políticas de empregabilidade e cumprimento da Lei de Cotas.</li>
+        <li>Aperfeiçoar a Lei de Cotas para alcançar especialmente pessoas que enfrentam maiores barreiras para ingresso no mercado de trabalho.</li>
+        <li>Fortalecer paradesporto e políticas de cultura e lazer acessíveis.</li>
+        <li>Garantir protagonismo: nenhuma política sobre pessoas com deficiência sem ouvir as pessoas com deficiência.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p8">
+      <h3>8. BPC — trabalhar não pode significar perder proteção</h3>
+      <ul>
+        <li>Defender o fortalecimento do Benefício de Prestação Continuada — BPC.</li>
+        <li>Construir mecanismos para que o ingresso da pessoa com deficiência no mercado formal não provoque perda abrupta da proteção social.</li>
+        <li>Defender regras que permitam conciliar benefício, trabalho e autonomia financeira.</li>
+        <li>Criar mecanismos de transição e retorno simplificado ao benefício quando cessada a renda proveniente do trabalho.</li>
+        <li>Rever critérios econômicos excessivamente restritivos para acesso ao BPC, considerando os custos reais da deficiência e da dependência, e não apenas a renda nominal da família.</li>
+        <li>Defender avaliação biopsicossocial humanizada, acessível e sem burocracia excessiva.</li>
+      </ul>
+      <p class="callout">Conseguir trabalhar deve significar conquistar autonomia e não perder segurança.</p>
+    </article>
+
+    <article class="proposal" id="p9">
+      <h3>9. Bolsa Família — emprego não pode punir a família</h3>
+      <ul>
+        <li>Defender o Bolsa Família como instrumento permanente de proteção à infância e enfrentamento à pobreza.</li>
+        <li>Criar mecanismos para assegurar a renda cidadã evitando a perda abrupta do benefício quando alguém da família consegue emprego formal ou aumenta sua renda.</li>
+        <li>Defender período e teto de renda mínima adequados de transição para famílias que ingressam no mercado de trabalho.</li>
+        <li>Garantir proteção especial às famílias com crianças, adolescentes, pessoas com deficiência e pessoas dependentes.</li>
+        <li>Incentivar emprego e autonomia, sem criar o medo de que a formalização do trabalho deixe imediatamente os filhos sem proteção.</li>
+      </ul>
+      <p class="callout">Carteira assinada precisa abrir portas — não retirar o chão da família.</p>
+    </article>
+
+    <article class="proposal" id="p10">
+      <h3>10. Pessoas idosas — envelhecer com dignidade</h3>
+      <ul>
+        <li>Defender previdência pública e aposentadoria digna.</li>
+        <li>Fortalecer o SUS e ampliar atendimento especializado à população idosa.</li>
+        <li>Combater violência física, psicológica, patrimonial e financeira.</li>
+        <li>Fortalecer políticas de atendimento domiciliar.</li>
+        <li>Apoiar centros de convivência e envelhecimento ativo.</li>
+        <li>Ampliar inclusão digital e educação financeira.</li>
+        <li>Fortalecer políticas para pessoas idosas em situação de dependência e suas famílias cuidadoras.</li>
+        <li>Combater abandono e institucionalização inadequada.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p11">
+      <h3>11. Pequenos produtores e agricultura familiar</h3>
+      <ul>
+        <li>Fortalecer o PRONAF e o crédito rural para pequenos produtores.</li>
+        <li>Ampliar assistência técnica e extensão rural.</li>
+        <li>Fortalecer programas públicos de aquisição de alimentos da agricultura familiar.</li>
+        <li>Incentivar cooperativas e associações.</li>
+        <li>Facilitar a regularização e comercialização da produção artesanal e familiar.</li>
+        <li>Apoiar agroindústrias familiares.</li>
+        <li>Ampliar conectividade, energia, água, estradas e infraestrutura no campo.</li>
+        <li>Criar mecanismos de proteção diante de eventos climáticos e perdas de produção.</li>
+        <li>Valorizar mulheres e jovens rurais e incentivar sua permanência no campo.</li>
+        <li>Defender produção sustentável e segurança alimentar.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p12">
+      <h3>13. Feirantes, artesãos e pequenos empreendedores</h3>
+      <p class="intro">O plano utilizado como referência também reconhece a necessidade de proteção a feirantes, ambulantes e pequenos empreendedores urbanos.</p>
+      <ul>
+        <li>Ampliar microcrédito e crédito com juros acessíveis.</li>
+        <li>Simplificar burocracias.</li>
+        <li>Apoiar a modernização e infraestrutura das feiras livres.</li>
+        <li>Incentivar espaços permanentes para comercialização.</li>
+        <li>Valorizar o artesanato mineiro como patrimônio econômico, cultural e turístico.</li>
+        <li>Ampliar acesso a capacitação, tecnologia e comércio digital.</li>
+        <li>Incentivar compras governamentais da agricultura familiar, artesãos, cooperativas e pequenos negócios.</li>
+        <li>Criar condições para que quem produz pequeno possa crescer sem ser esmagado pelos grandes.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p13">
+      <h3>14. Saúde pública — SUS forte e perto das pessoas</h3>
+      <ul>
+        <li>Defender financiamento adequado e permanente do SUS.</li>
+        <li>Trabalhar pela atualização e valorização da Tabela SUS.</li>
+        <li>Fortalecer Santas Casas, hospitais filantrópicos e hospitais regionais.</li>
+        <li>Ampliar atenção básica e saúde da família.</li>
+        <li>Reduzir filas para consultas, exames e cirurgias.</li>
+        <li>Fortalecer saúde mental e CAPS.</li>
+        <li>Ampliar políticas de prevenção e atendimento às doenças crônicas.</li>
+        <li>Incentivar telemedicina e tecnologia para ampliar o atendimento no interior, sem substituir o atendimento presencial quando necessário.</li>
+        <li>Destinar emendas parlamentares para fortalecer a rede de saúde dos municípios mineiros.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p14">
+      <h3>15. Desenvolvimento econômico — emprego e oportunidades em Minas</h3>
+      <ul>
+        <li>Trabalhar para atrair investimentos e gerar empregos de qualidade em Minas Gerais.</li>
+        <li>Apoiar micro e pequenas empresas.</li>
+        <li>Incentivar indústria, inovação, tecnologia e economia criativa.</li>
+        <li>Fortalecer turismo, cultura e economia regional.</li>
+        <li>Incentivar formação profissional conectada às vocações econômicas de cada região.</li>
+        <li>Defender infraestrutura logística, rodoviária, ferroviária e digital.</li>
+        <li>Incentivar cadeias produtivas mineiras e agregação de valor aos produtos produzidos no Estado.</li>
+        <li>Defender uma transição energética que gere novos empregos.</li>
+        <li>Buscar desenvolvimento econômico com responsabilidade social e ambiental.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p15">
+      <h3>16. Cultura viva, memória preservada e financiamento permanente para as tradições populares</h3>
+      <p class="intro">As festas, celebrações, saberes e manifestações das culturas tradicionais e populares preservam nossa memória coletiva, fortalecem a identidade das comunidades, movimentam a economia local e transmitem conhecimentos entre gerações. Congados, reinados, guardas de Moçambique, folias de reis, festas juninas e quadrilhas, festas religiosas e de padroeiros, festejos indígenas, afro-brasileiros, quilombolas, sertanejos, rurais e tantas outras expressões culturais não podem depender apenas da boa vontade de cada governo ou de editais esporádicos.</p>
+      <ul>
+        <li>Criar uma política pública nacional, permanente e descentralizada de proteção e financiamento das culturas tradicionais e populares, com recursos continuados da União e participação dos estados e municípios.</li>
+        <li>Garantir dotação anual no orçamento federal e uma linha específica e permanente no Fundo Nacional da Cultura, com critérios transparentes de distribuição e prioridade para pequenos municípios, comunidades tradicionais e manifestações ameaçadas de desaparecimento.</li>
+        <li>Assegurar financiamento plurianual para que associações, irmandades, guardas, ternos, grupos, coletivos e comunidades possam planejar suas atividades com antecedência e não precisem recomeçar a busca por recursos todos os anos.</li>
+        <li>Apoiar a realização, a continuidade e a transmissão entre gerações de congados, reinados, guardas de Moçambique, folias de reis, festas juninas e quadrilhas, festas de matriz africana, indígenas, quilombolas, sertanejas, rurais, religiosas e demais celebrações que formam a diversidade cultural mineira e brasileira.</li>
+        <li>Simplificar editais, inscrições, prestação de contas e exigências documentais, oferecendo busca ativa, orientação técnica e formas de contratação adequadas à realidade de grupos comunitários, inclusive daqueles que não possuem CNPJ ou estrutura administrativa.</li>
+        <li>Instituir apoio direto e bolsas para mestres e mestras das culturas tradicionais e populares, capitães, festeiros, artesãos, músicos, dançantes, cozinheiras tradicionais e demais detentores de saberes, reconhecendo sua contribuição e garantindo condições dignas para a transmissão de seus conhecimentos.</li>
+        <li>Financiar não apenas os eventos, mas toda a cadeia cultural: instrumentos, indumentárias, estandartes, adereços, transporte, alimentação, hospedagem, ensaios, formação, acessibilidade, comunicação, segurança, infraestrutura e manutenção das sedes e espaços comunitários.</li>
+        <li>Criar um calendário nacional integrado das festas e celebrações tradicionais, respeitando a autonomia das comunidades, para ampliar a divulgação, o intercâmbio cultural e o turismo responsável, sem descaracterizar, comercializar indevidamente ou retirar das comunidades o protagonismo sobre suas tradições.</li>
+        <li>Desenvolver programas permanentes de identificação, inventário, registro, documentação, digitalização e preservação da memória oral, musical, fotográfica e audiovisual das comunidades, com criação de acervos públicos e comunitários.</li>
+        <li>Destinar recursos para restaurar e conservar igrejas, capelas, terreiros, sedes de guardas, estações, praças, mercados, conjuntos arquitetônicos, arquivos, objetos sagrados e outros bens materiais vinculados à memória e ao patrimônio histórico e cultural.</li>
+        <li>Fortalecer os instrumentos de reconhecimento, registro e salvaguarda do patrimônio cultural imaterial, garantindo que as próprias comunidades participem das decisões e autorizem o uso de suas imagens, símbolos, conhecimentos e expressões culturais.</li>
+        <li>Inserir a história, os saberes e as manifestações culturais locais nos projetos pedagógicos da educação básica, em articulação com as comunidades, valorizando as culturas afro-brasileiras, indígenas e populares e cumprindo as diretrizes da educação para as relações étnico-raciais.</li>
+        <li>Promover o encontro entre escolas, mestres da cultura e grupos tradicionais, com oficinas, visitas, apresentações, produção de materiais didáticos e remuneração justa das pessoas responsáveis pela transmissão dos saberes.</li>
+        <li>Garantir acessibilidade nas festividades e nos espaços culturais, com audiodescrição, Libras, comunicação acessível, rotas adequadas e condições de participação para pessoas idosas e com deficiência.</li>
+        <li>Estabelecer proteção contra a intolerância religiosa, o racismo e a discriminação, especialmente em relação às manifestações de matrizes africanas, afro-brasileiras, indígenas, quilombolas e de outros povos e comunidades tradicionais.</li>
+        <li>Criar indicadores e mecanismos de controle social para acompanhar a distribuição territorial e social dos recursos, assegurando a participação dos grupos tradicionais nos conselhos, comissões e decisões sobre as políticas culturais.</li>
+        <li>Articular cultura, educação, turismo, economia solidária e desenvolvimento regional, estimulando o trabalho de artesãos, costureiras, músicos, agricultores familiares, cozinheiras, comerciantes e demais trabalhadores locais, sem transformar as tradições em simples mercadoria.</li>
+      </ul>
+      <p class="callout">Tradição não é lembrança do passado — é identidade viva, trabalho, fé, memória e futuro. Cultura popular não precisa de favor; precisa de respeito, proteção e financiamento permanente.</p>
+    </article>
+
+    <article class="proposal" id="p16">
+      <h3>11. Tarifa zero — transporte como direito</h3>
+      <ul>
+        <li>Trabalhar pela criação de uma Política Nacional de Tarifa Zero, com financiamento compartilhado e apoio federal aos municípios.</li>
+        <li>Buscar fontes permanentes e socialmente justas de financiamento do transporte coletivo.</li>
+        <li>Priorizar municípios e populações de maior vulnerabilidade na implantação progressiva.</li>
+        <li>Vincular recursos federais à qualidade, acessibilidade, segurança e regularidade do transporte.</li>
+        <li>Incentivar integração entre ônibus, metrô, trens e demais modais.</li>
+        <li>Defender transporte coletivo acessível às pessoas com deficiência e mobilidade reduzida.</li>
+        <li>Investir em mobilidade ativa, ciclovias e segurança para pedestres.</li>
+      </ul>
+      <p class="callout">O direito de ir e vir não pode depender do dinheiro que sobra no bolso.</p>
+    </article>
+
+    <article class="proposal" id="p17">
+      <h3>16. Cidades inteligentes, sustentáveis e humanas</h3>
+      <ul>
+        <li>Criar e apoiar programas federais para Cidades Inteligentes, especialmente pequenos e médios municípios.</li>
+        <li>Universalizar internet e conectividade.</li>
+        <li>Incentivar iluminação pública inteligente e eficiente.</li>
+        <li>Apoiar energia solar e outras fontes renováveis.</li>
+        <li>Ampliar saneamento básico e acesso à água potável.</li>
+        <li>Apoiar projetos de drenagem urbana e prevenção de enchentes.</li>
+        <li>Incentivar arborização, parques urbanos e recuperação de áreas degradadas.</li>
+        <li>Apoiar projetos de cidades-esponja e infraestrutura verde.</li>
+        <li>Usar tecnologia para melhorar saúde, educação, mobilidade, segurança e atendimento público.</li>
+        <li>Defender planejamento para enfrentar eventos climáticos extremos.</li>
+      </ul>
+      <p class="callout">Cidade inteligente é aquela que usa tecnologia para cuidar melhor das pessoas.</p>
+    </article>
+
+    <article class="proposal" id="p18">
+      <h3>17. Minas Gerais forte em Brasília</h3>
+      <ul>
+        <li>Defender os interesses dos 853 municípios mineiros no Congresso Nacional.</li>
+        <li>Buscar recursos federais para saúde, educação, assistência social, infraestrutura, agricultura e desenvolvimento.</li>
+        <li>Destinar emendas parlamentares com critérios transparentes e prioridade social.</li>
+        <li>Priorizar municípios e comunidades historicamente menos atendidos.</li>
+        <li>Criar canal permanente para apresentação de projetos pelos municípios e entidades sociais.</li>
+      </ul>
+    </article>
+
+    <article class="proposal" id="p19">
+      <h3>18. Um mandato participativo, transparente e presente</h3>
+      <ul>
+        <li>Criar canais permanentes de participação popular.</li>
+        <li>Realizar encontros regionais periódicos em Minas Gerais.</li>
+        <li>Manter diálogo permanente com sindicatos, associações, movimentos sociais, entidades empresariais, universidades e organizações comunitárias.</li>
+        <li>Criar espaços específicos de participação de mulheres, pessoas com deficiência, idosas, trabalhadores, servidores, juventude, agricultores familiares, artesões, coletivos culturais, artísticos e históricos.</li>
+        <li>Consultar a população sobre prioridades para destinação de parte das emendas parlamentares.</li>
+        <li>Publicar informações sobre votos, projetos, recursos e atuação parlamentar.</li>
+        <li>Estar em Brasília para defender Minas e estar em Minas para ouvir as pessoas.</li>
+      </ul>
+    </article>
+
+    <section class="closing">
+      <h2>Desenvolver, cuidar e incluir</h2>
+      <p>Brasília precisa ouvir quem acorda cedo, trabalha, cuida e produz. Cuidar de pessoas, valorizar quem trabalha e defender serviços públicos é promover crescimento econômico com proteção social — caminho certo para o desenvolvimento real e duradouro.</p>
+      <p>Minas Gerais tem força, história e futuro. Nós podemos — e vamos — crescer sem deixar ninguém para trás.</p>
+      <strong>Nosso compromisso com você:</strong>
+      <ul>
+        <li>Mais oportunidades para quem produz e empreende.</li>
+        <li>Mais proteção e dignidade para quem mais precisa.</li>
+        <li>Mais respeito e voz ativa para o povo mineiro no Congresso Nacional.</li>
+      </ul>
+      <p>Junte-se a nós nessa caminhada, por Minas e pelo Brasil!</p>
+      <div class="slogan">Fanny Melo — Deputada Federal — 2060</div>
+      <div class="motto">Coragem para mudar, sensibilidade para cuidar!</div>
+    </section>
+
+    <div class="pdf-embed" id="pdf">
+      <header>
+        <strong>Documento original (PDF)</strong>
+        <a class="link-small" href="assets/Fanny_Melo_-_Plano_de_Propostas.pdf" download>Baixar arquivo ↓</a>
+      </header>
+      <object data="assets/Fanny_Melo_-_Plano_de_Propostas.pdf" type="application/pdf">
+        <iframe src="assets/Fanny_Melo_-_Plano_de_Propostas.pdf" title="Plano de Propostas - Fanny Melo"></iframe>
+      </object>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-logo">FANNY MELO · 2060</div>
+    PROPAGANDA ELEITORAL . FANNY MELO . PODEMOS . CNPJ: 68.545.025/0001-04
+  </footer>
+
+</body>
+</html>
