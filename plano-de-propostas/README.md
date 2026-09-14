@@ -9,32 +9,43 @@ Deputada Federal, PODEMOS 2060), pronta para ser publicada no subdomínio
 - `index.html` — página com a biografia e as 18 propostas do plano, mais um
   visualizador e botão de download do PDF original.
 - `assets/Fanny_Melo_-_Plano_de_Propostas.pdf` — arquivo original enviado.
+- `CNAME` — arquivo que diz ao GitHub Pages qual domínio customizado usar
+  (`plano-de-propostas.fannymelo.com.br`).
 
 Esta é uma página 100% estática (HTML/CSS puro, sem build, sem dependências de
 servidor), então pode ser hospedada em qualquer serviço de hospedagem estática.
 
-## Como criar o subdomínio e publicar
+## Deploy automático via GitHub Actions (já configurado)
+
+O workflow `.github/workflows/deploy-pages.yml` publica automaticamente esta
+pasta no GitHub Pages a cada push que altere `plano-de-propostas/**` (nas
+branches `main` e `claude/fanny-subdomain-proposal-plans-6d670u`), e também
+pode ser disparado manualmente em **Actions → Deploy Plano de Propostas to
+GitHub Pages → Run workflow**.
+
+Ele usa `actions/configure-pages`, que habilita o GitHub Pages automaticamente
+(fonte "GitHub Actions") na primeira execução — não é necessário mexer em
+**Settings → Pages** manualmente. Como a pasta já contém o arquivo `CNAME`, o
+GitHub também configura o domínio customizado sozinho a cada deploy.
+
+## Como criar o subdomínio (única etapa manual)
 
 Eu não tenho acesso ao painel de DNS/registrador do domínio `fannymelo.com.br`,
-então a criação do subdomínio precisa ser feita por quem administra o domínio.
-Escolha uma das opções abaixo:
+então esta etapa precisa ser feita por quem administra o domínio:
 
-### Opção A — GitHub Pages (grátis, mais simples)
-
-1. Neste repositório, vá em **Settings → Pages** e publique a partir da branch
-   com esta pasta (ou mova o conteúdo desta pasta para um repositório dedicado,
-   se preferir manter o site separado do restante do projeto).
-2. Em **Settings → Pages → Custom domain**, informe
-   `plano-de-propostas.fannymelo.com.br`.
-3. No painel de DNS onde o domínio `fannymelo.com.br` está registrado, crie um
-   registro:
+1. No painel de DNS onde `fannymelo.com.br` está registrado, crie um registro:
    - Tipo: `CNAME`
    - Nome/Host: `plano-de-propostas`
-   - Valor/Aponta para: `<usuario>.github.io` (o domínio do GitHub Pages)
-4. Aguarde a propagação do DNS (pode levar de minutos a algumas horas) e ative
-   "Enforce HTTPS" nas configurações do Pages.
+   - Valor/Aponta para: `mariana332.github.io`
+2. Aguarde a propagação do DNS (minutos a algumas horas).
+3. Depois que o domínio propagar, confira em **Settings → Pages** deste
+   repositório se "Enforce HTTPS" está marcado (o GitHub emite o certificado
+   automaticamente assim que reconhece o domínio).
 
-### Opção B — Outro provedor de hospedagem (Vercel, Netlify, cPanel, etc.)
+Depois disso, o plano de propostas ficará acessível em
+`https://plano-de-propostas.fannymelo.com.br`.
+
+### Alternativa — outro provedor de hospedagem (Vercel, Netlify, cPanel, etc.)
 
 1. Faça o upload/deploy desta pasta (`index.html` + `assets/`) no provedor
    escolhido.
